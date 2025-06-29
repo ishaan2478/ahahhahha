@@ -1,0 +1,112 @@
+/* === GENERAL STYLES === */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+}
+
+/* === HOME PAGE STYLES (home.html) === */
+body.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.home-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #d63384;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #5a2a38;
+  margin-bottom: 30px;
+}
+
+.footer-note {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #7b2c45;
+  font-style: italic;
+}
+
+/* === HEART BUTTON === */
+.heart-button {
+  width: 100px;
+  height: 100px;
+  background: #ff4d6d;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #ff4d6daa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+
+  animation: beat 1s infinite ease-in-out;
+}
+
+.heart-button:hover {
+  background: #ff2c4c;
+  transform: scale(1.1);
+}
+
+@keyframes beat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* === INDEX PAGE (LETTER PAGE) === */
+.letter {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(255, 105, 135, 0.3);
+  text-align: justify;
+}
+
+.typewriter-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* === TAP FOR KISSES BUTTON === */
+.kiss-button {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 12px 24px;
+  background-color: #ff4d6d;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 5px 15px rgba(255, 105, 135, 0.3);
+}
+
+.kiss-button:hover {
+  background-color: #ff2c4c;
+  transform: scale(1.05);
+}
