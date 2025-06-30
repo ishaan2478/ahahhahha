@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Pacifico', cursive;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: url('https://spaceplace.nasa.gov/meteor-shower/en/meteor-shower.en.gif') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      filter: blur(60%); /* Increased blur effect */
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 3em;
+      z-index: 2;
+      position: absolute;
+      top: 20px;
+    }
+
+    #game-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+    }
+
+    /* Central box where the cards will be */
+    #dabba {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* 5x5 grid layout */
+      gap: 10px;
+      width: 500px; /* Increased width for larger container */
+      height: 500px; /* Increased height for larger container */
+      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent box */
+      border-radius: 10px;
+      padding: 10px;
+      position: relative;
+    }
+
+    /* Card styles */
+    .card {
+      width: 90px; /* Increased card size */
+      height: 90px;
+      background-color: rgba(255, 255, 255, 0.3); /* Light background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 30px; /* Larger font for cards */
+      color: #fff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+    }
+
+    /* Back button styles */
+    #backButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ff6347;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    #backButton:hover {
+      background-color: #ff4500;
+    }
+
+    /* Card flipped state */
+    .card.flipped {
+      background-color: rgba(0, 0, 0, 0.7); /* Darker flipped background */
+      color: #fff;
+    }
+
+    /* Matched cards */
+    .card.matched {
+      background-color: #2ecc71; /* Green color for matched cards */
+      color: #fff;
+    }
+
+    /* Win message */
+    .game-over {
+      display: none;
+      margin-top: 80px;
+      font-size: 24px;
+      color: green;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 600px) {
+      #dabba {
+        width: 350px; /* Smaller dabba for mobile */
+        height: 350px;
+      }
+
+      .card {
+        width: 60px; /* Smaller card size for mobile */
+        height: 60px;
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Memory Game 💖</h1>
+
+<div id="game-container">
+  <div id="dabba"></div>
+  <div class="game-over" id="game-over">You won! 🎉</div>
+  <!-- Back Button -->
+  <button id="backButton" onclick="goBack()">Go Back</button>
+</div>
+
+<script>
+  const cardValues = ['💖', '💖', '❤️', '❤️', '💘', '💘', '💝', '💝', '⭐', '⭐', '🌟', '🌟', '💫', '💫', '✨', '✨', '🍀', '🍀', '🌸', '🌸', '🌈', '🌈', '🔥', '🔥', '🎉', '🎉', '💥', '💥'];
+
+  // Function to shuffle the values and ensure all boxes have cards
+  let shuffledValues = [...cardValues];
+
+  const randomizeCardValues = () => {
+    const positions = Array.from(Array(25).keys());
+    const shuffledPositions = positions.sort(() => Math.random() - 0.5);
+    const newCardLayout = Array(25).fill(null);
+
+    for (let i = 0; i < shuffledValues.length; i++) {
+      newCardLayout[shuffledPositions[i]] = shuffledValues[i];
+    }
+
+    return newCardLayout;
+  };
+
+  let currentLayout = randomizeCardValues();
+
+  let flippedCards = [];
+  let matchedCards = 0;
+  const totalPairs = cardValues.length / 2;
+
+  const dabba = document.getElementById('dabba');
+  const gameOverMessage = document.getElementById('game-over');
+
+  // Create the cards and place them in the dabba (central box)
+  function createCards() {
+    currentLayout.forEach((value, index) => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.dataset.index = index;
+      card.dataset.value = value || ""; // If value is null (empty space), don't display anything
+      card.addEventListener('click', flipCard);
+      dabba.appendChild(card);
+    });
+  }
+
+  // Flip the card when clicked
+  function flipCard() {
+    if (flippedCards.length === 2) return; // Avoid flipping more than 2 cards at a time
+    const card = this;
+
+    // Ignore if the card is already flipped or matched
+    if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+
+    // Flip the card with animation
+    card.classList.add('flipped');
+    card.innerHTML = `<div class="card-text">${card.dataset.value}</div>`;
+    flippedCards.push(card);
+
+    // If two cards are flipped, check for a match
+    if (flippedCards.length === 2) {
+      checkMatch();
+    }
+  }
+
+  // Check if the two flipped cards match
+  function checkMatch() {
+    const [card1, card2] = flippedCards;
+    if (card1.dataset.value === card2.dataset.value) {
+      // Cards match
+      card1.classList.add('matched');
+      card2.classList.add('matched');
+      matchedCards++;
+
+      if (matchedCards === totalPairs) {
+        setTimeout(() => {
+          gameOverMessage.style.display = 'block'; // Display win message
+        }, 500);
+      }
+    } else {
+      // Cards don't match, reset flipped cards after delay
+      setTimeout(() => {
+        card1.classList.remove('flipped');
+        card2.classList.remove('flipped');
+        card1.innerHTML = '';
+        card2.innerHTML = '';
+      }, 500); // Faster reset (less delay)
+    }
+
+    flippedCards = []; // Reset flipped cards
+  }
+
+  // Initialize the game
+  createCards();
+
+  // Function for the back button
+  function goBack() {
+    window.history.back(); // Go to the previous page in browser history
+  }
+</script>
+
+</body>
+</html>

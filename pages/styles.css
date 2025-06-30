@@ -1,0 +1,142 @@
+/* Basic Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Railway', sans-serif;
+}
+
+/* Background */
+.letter-page {
+  background: linear-gradient(120deg, #ffdde1 0%, #f6e6ff 100%);
+  color: #5e0035;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  text-align: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+/* Heading */
+.gf-heading {
+  font-family: 'Great Vibes', Helvetica;
+  text-align: center;
+  font-size: 2.8rem;
+  color: #ff1493;
+  text-shadow: 0 0 10px rgba(255, 20, 147, 0.6),
+               0 0 20px rgba(255, 105, 180, 0.5);
+  margin-bottom: 30px;
+  animation: glowText 2s ease-in-out infinite alternate;
+}
+
+/* Letter Box */
+.letter-container {
+  max-width: 600px;
+  min-height: 10px; /* ✅ Add this */
+  background: #fff0f5;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+  animation: glowBox 3s ease-in-out infinite alternate;
+}
+
+
+/* Inner Letter Heading */
+.letter-container h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+  color: #c2185b;
+}
+
+/* Typewriter Area */
+#typewriter {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+
+  border-left: 2px solid #ff1493;
+  border-right: 2px solid #ff1493;
+  animation: blinkCursor 0.8s steps(1) infinite;
+
+  /* ✅ Center the box itself */
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+
+  /* ✅ Center the text */
+  text-align: center;
+
+  /* ✅ Fixed height and padding */
+  min-height: 180px;
+  max-height: 500px;
+  overflow-y: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+/* Button (Hidden by Default) */
+
+#next-button {
+  display: inline-block;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s ease;
+  margin-top: 30px;
+  padding: 12px 24px;
+  background: #ff69b4;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+  transform: scale(1);
+  transition: opacity 1.5s ease, transform 0.3s ease;
+}
+
+#next-button.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1.05);
+}
+
+#next-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.7);
+}
+
+
+/* Glowing Animations */
+@keyframes glowBox {
+  0% {
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 40px rgba(255, 20, 147, 0.6);
+  }
+}
+
+@keyframes glowText {
+  0% {
+    text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+  }
+  100% {
+    text-shadow: 0 0 20px #ff1493, 0 0 40px #ff1493;
+  }
+}
+
+@keyframes blinkCursor {
+  0% { border-color: transparent; }
+  50% { border-color: #ff1493; }
+  100% { border-color: transparent; }
+}

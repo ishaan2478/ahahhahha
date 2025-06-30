@@ -1,0 +1,81 @@
+/* Reset & Basics */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Homepage Style */
+.index-page {
+  background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #6a1b9a;
+}
+
+/* Container */
+.container {
+  padding: 20px;
+}
+
+/* Heading */
+.container h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+}
+
+/* Subtext */
+.container p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+/* Heart Emoji Button */
+.heart-emoji-button {
+  font-size: 3rem;
+  text-decoration: none;
+  background: white;
+  border-radius: 50%;
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: inline-block;
+  animation: pulse 1.5s infinite;
+}
+
+/* Hover & Click Effects */
+.heart-emoji-button:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 30px rgba(255, 0, 85, 0.5);
+}
+
+/* Glowing Pulse Animation */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 0, 85, 0.7);
+  }
+}
+/* Main Page Style */
+.main-page {      
+  background: linear-gradient(135deg, #e1bee7, #f3e5f5);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #4a148c;
+}
+/* Main Container */
+.main-container { 
+  padding: 20px;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+} 

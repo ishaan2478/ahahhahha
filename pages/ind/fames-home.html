@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Love Game Home</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ff7f50, #ff1493); /* Enhanced gradient (soft orange to pink) */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 50px;
+      color: white;
+    }
+    h1 {
+      margin-bottom: 40px;
+      font-size: 3em;
+      color: white; /* White text for contrast */
+    }
+    .btn {
+      background: #FF6347; /* Lighter red for buttons */
+      color: white;
+      padding: 20px 40px;
+      margin: 15px;
+      font-size: 1.4rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s ease, transform 0.2s ease-in-out;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover {
+      background: #ff1493; /* Pink on hover */
+      transform: scale(1.1);
+    }
+    .btn:active {
+      transform: scale(1);
+    }
+    .btn span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn span:first-child {
+      margin-right: 10px;
+      font-size: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Choose Your Love Game 💖</h1>
+
+  <a href="games/puzzel.html" class="btn">
+    <span>🍀</span> Puzzle Game 🧩
+  </a>
+  <a href="games/memory.html" class="btn">
+    <span>🧠</span> Memory Game 🎮
+  </a>
+
+</body>
+</html>
